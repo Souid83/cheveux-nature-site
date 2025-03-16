@@ -8,7 +8,7 @@ interface VideoSectionProps {
 }
 
 export default function VideoSection({ 
-  videoUrl = "https://player.vimeo.com/external/373239380.sd.mp4?s=6e3ea5b4e32f345a3e921e0647454a4efee7e0f1&profile_id=164&oauth2_token_id=57447761",
+  videoUrl = "https://souid83.github.io/cheveux-nature-site/videos/site_.mp4",
   fallbackUrl,
   poster
 }: VideoSectionProps) {
