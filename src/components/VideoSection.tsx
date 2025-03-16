@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
 
 interface VideoSectionProps {
   videoUrl?: string;
@@ -8,73 +7,39 @@ interface VideoSectionProps {
 }
 
 export default function VideoSection({ 
+<<<<<<< HEAD
   videoUrl = "https://souid83.github.io/cheveux-nature-site/videos/site_.mp4",
+=======
+  videoUrl = "https://souid83.github.io/cheveux-nature-site/videos/site_.mp4", // ✅ Chemin absolu pour GitHub Pages
+>>>>>>> ac240cb (Mise à jour du build)
   fallbackUrl,
   poster
 }: VideoSectionProps) {
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    console.log("💡 Le composant VideoSection est bien rendu !");
     if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.play().catch(() => setIsPlaying(false));
-      } else {
-        videoRef.current.pause();
-      }
+      console.log("🎥 Tentative de lecture de la vidéo :", videoUrl);
+      videoRef.current.play().catch((err) => console.error("Erreur de lecture vidéo:", err));
     }
-  }, [isPlaying]);
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-  };
-
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-  };
+  }, []);
 
   return (
-    <div className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden bg-gray-100">
+    <div className="relative w-full h-[60vh] md:h-[80vh] bg-gray-100">
       <video
         ref={videoRef}
         autoPlay
-        muted={isMuted}
+        muted
         loop
         playsInline
-        poster={poster}
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        controls
+        className="w-full h-full object-cover"
       >
         <source src={videoUrl} type="video/mp4" />
         {fallbackUrl && <source src={fallbackUrl} type="video/webm" />}
+        Votre navigateur ne supporte pas la vidéo.
       </video>
-      
-      <div className="absolute bottom-4 right-4 flex gap-2">
-        <button 
-          onClick={togglePlay}
-          className="p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors"
-          aria-label={isPlaying ? 'Pause' : 'Play'}
-        >
-          {isPlaying ? (
-            <Pause className="w-5 h-5 text-white" />
-          ) : (
-            <Play className="w-5 h-5 text-white" />
-          )}
-        </button>
-        <button 
-          onClick={toggleMute}
-          className="p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors"
-          aria-label={isMuted ? 'Unmute' : 'Mute'}
-        >
-          {isMuted ? (
-            <VolumeX className="w-5 h-5 text-white" />
-          ) : (
-            <Volume2 className="w-5 h-5 text-white" />
-          )}
-        </button>
-      </div>
-      
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
     </div>
   );
 }
